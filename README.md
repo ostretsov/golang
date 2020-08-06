@@ -6,7 +6,7 @@ json.NewEncoder(w).Encode(errs(H{"description": "failed to do something: " + err
 return
 ```
 
-In such a case error must be logged and a client should be provided with a `Reference`:
+In such case error must be logged and a client should be provided with a `Reference`:
 
 ```go
 logger.Error("failed to do something",
