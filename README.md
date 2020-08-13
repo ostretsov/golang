@@ -24,10 +24,13 @@ return
 An error code is easily machinable by a client of an API.
 
 ```go
-w.WriteHeader(http.StatusBadRequest)
-json.NewEncoder(w).Encode(map[string]string{
-    "code": "1",
-    "description": "failed to decode json body",
-})
-return
+err := json.NewDecoder(r.Body).Decode(&reqBody)
+if err != nil {
+    w.WriteHeader(http.StatusBadRequest)
+    json.NewEncoder(w).Encode(errs(H{
+        "code": "1",
+        "description": "failed to decode json body",
+    }))
+    return
+}
 ```
