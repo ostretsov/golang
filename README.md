@@ -1,7 +1,5 @@
 #### Enable a way (handler, command argument) returning git hash and build time of an app
 
-Define 
-
 ```go
 package main
 
