@@ -14,7 +14,7 @@ There is a linker flag `-X` to write information into the variable at link time.
 
 ```Dockerfile
 # ...
-RUN GITCOMMITHASH=`git rev-parse --short HEAD` BUILDTIME=`date -u '+%Y-%m-%dT%H:%M:%SZ'` && GOFLAGS="-w -s -X main.gitCommitHash=`echo $GITCOMMITHASH` -X main.buildTime=`echo $BUILDTIME`" && CGO_ENABLED=0 GOOS=linux go build -ldflags="$GOFLAGS" -a -o /go/bin/app .
+RUN GITCOMMITHASH=`git rev-parse --short HEAD` BUILDTIME=`date -u '+%Y-%m-%dT%H:%M:%SZ'` && GOFLAGS="-w -s -X main.gitCommitHash=`echo $GITCOMMITHASH` -X main.buildTime=`echo $BUILDTIME`" && GOOS=linux go build -ldflags="$GOFLAGS" -a -o /go/bin/app .
 # ...
 ```
 
