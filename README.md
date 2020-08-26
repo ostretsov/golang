@@ -54,3 +54,11 @@ if err != nil {
     return
 }
 ```
+
+#### Forbid a client to send same data twice (deduplication)
+
+Always keep in mind that a client could send same data twice in serarate requests. It might lead to a duplication problem especially if a corresponding handler is integrated with third-party applications. It's important then to forbid sending same data in a handler:
+
+```go
+// Insert code here
+```
