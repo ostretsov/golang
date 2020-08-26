@@ -1,3 +1,23 @@
+#### Enable a way (handler, command argument) returning git hash and build time of an app
+
+```go
+package main
+
+var gitCommitHash string
+var buildTime string
+
+func main() {
+    // Return values of gitCommitHash and buildTime in a handler, or print them in stdout if specific command argument is provided.
+}
+```
+There is a linker flag `-X` to write information into the variable at link time. It might be used in `Dockerfile` like the following:
+
+```Dockerfile
+# ...
+RUN GITCOMMITHASH=`git rev-parse --short HEAD` BUILDTIME=`date -u '+%Y-%m-%dT%H:%M:%SZ'` && GOFLAGS="-w -s -X main.gitCommitHash=`echo $GITCOMMITHASH` -X main.buildTime=`echo $BUILDTIME`" && GOOS=linux go build -ldflags="$GOFLAGS" -a -o /go/bin/app .
+# ...
+```
+
 #### Do not return error text to a user in a response body
 
 ```go
