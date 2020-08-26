@@ -7,7 +7,7 @@ var gitCommitHash string
 var buildTime string
 
 func main() {
-    // return gitCommitHash and buildTime variables in a handler or if specific command argument is provided
+    // Return values of gitCommitHash and buildTime in a handler, or print them in stdout if specific command argument is provided.
 }
 ```
 There is a linker flag `-X` to write information into the variable at link time. It might be used in `Dockerfile` like the following:
