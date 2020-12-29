@@ -18,6 +18,44 @@ RUN GITCOMMITHASH=`git rev-parse --short HEAD` BUILDTIME=`date -u '+%Y-%m-%dT%H:
 # ...
 ```
 
+#### Generate short UUID reference ID or use `Reference-ID` of an incoming HTTP-request if it's specified
+
+```go
+package middleware
+
+import (
+	"context"
+	"github.com/lithammer/shortuuid/v3"
+	"net/http"
+)
+
+type referenceID string
+var referenceIDKey = referenceID("reference_id")
+
+func ReferenceID(handler http.Handler) http.HandlerFunc {
+	return func(w http.ResponseWriter, req *http.Request) {
+		refID := req.Header.Get("Reference-ID")
+		if refID == "" {
+			refID = shortuuid.New()
+		}
+		ctx := context.WithValue(req.Context(), referenceIDKey, refID)
+		req = req.WithContext(ctx)
+
+		w.Header().Set("Reference-ID", refID)
+
+		handler.ServeHTTP(w, req)
+	}
+}
+
+func GetReferenceID(r *http.Request) string {
+	val := r.Context().Value(referenceIDKey)
+	if val == nil {
+		return ""
+	}
+	return val.(string)
+}
+```
+
 #### Do not return error text to a user in a response body
 
 ```go
