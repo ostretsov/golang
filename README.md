@@ -26,15 +26,15 @@ json.NewEncoder(w).Encode(errs(H{"description": "failed to do something: " + err
 return
 ```
 
-In such case error must be logged and a client should be provided with a `Reference`:
+In such a case error must be logged and a client should be provided with the `Reference-ID` header:
 
 ```go
 logger.Error("failed to do something",
     zap.Error(err),    
-    zap.String("reference", ref),
+    zap.String("reference_id", ref),
 )
 w.WriteHeader(http.StatusInternalServerError)
-w.Header().Set("Reference", ref)
+w.Header().Set("Reference-ID", ref)
 json.NewEncoder(w).Encode(errs(H{"description": "failed to do something"}))
 return
 ```
