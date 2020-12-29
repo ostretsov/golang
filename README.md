@@ -18,6 +18,8 @@ RUN GITCOMMITHASH=`git rev-parse --short HEAD` BUILDTIME=`date -u '+%Y-%m-%dT%H:
 # ...
 ```
 
+#### TODO: Add probe endpoint for k8s
+
 #### Generate short UUID reference ID or use `Reference-ID` of an incoming HTTP-request if it's specified
 
 ```go
